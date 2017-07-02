@@ -1,5 +1,6 @@
 import telebot
 import BotCommands
+import BotCallBack
 
 class Bot:
 
@@ -18,7 +19,11 @@ class Bot:
 
         def handle(message):
             BotCommands.command_start(self.__bot, message)
-            # ...
+
+        @self.__bot.callback_query_handler(func=lambda call: True)
+
+        def handle_callback(call):
+            BotCallBack.command_callback_handle(self.__bot, call)
 
         self.__bot.polling(none_stop=True)
 
